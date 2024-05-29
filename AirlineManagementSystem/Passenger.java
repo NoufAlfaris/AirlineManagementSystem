@@ -1,5 +1,6 @@
 //a class that serves as a blueprint for individuals who book a flight within an airline system.
-public class Passenger{
+import java.io.*;
+public class Passenger implements Serializable{
     
     private String firstName;
     private String lastName;
@@ -8,11 +9,19 @@ public class Passenger{
     private String profession;
 
 
-   public Passenger(String fName, String lName, String id, int age, String profession){
+   public Passenger(String fName, String lName, String id, int age, String profession)throws NegativeAge,IdException{
       firstName=fName;
       lastName=lName;
-      nationalID=id;
-      this.age=age;
+      if(id.length()!=10)
+         throw new IdException("National ID must consist of 10 Numbers");
+      else
+         nationalID=id;
+
+      if(age<0)
+         throw new NegativeAge("Age can't be negative");
+      else
+         this.age=age;
+      
       this.profession = profession;
    }
 

@@ -2,7 +2,7 @@
 public class InternationalFlight extends Flight{
     
 
-    public InternationalFlight(String id, String cityDest, String countryDest, double duration, int day, int month, int year, int size){
+    public InternationalFlight(String id, String cityDest, String countryDest, double duration, int day, int month, int year, int size)throws MnthsException{
         super(id, cityDest, countryDest, duration, day, month, year, size);
         
     } //parameterized constructor

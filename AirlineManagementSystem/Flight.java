@@ -1,5 +1,6 @@
 //super-class managing flight operations for an airline based in Saudi Arabia.
-public abstract class Flight{
+import java.io.*;
+public abstract class Flight implements Serializable{
     protected String id;
     protected String cityDest;
     protected String countryDest;
@@ -11,7 +12,7 @@ public abstract class Flight{
     protected int year;
 
 
-    public Flight(String id, String cityDest, String countryDest, double duration, int day, int month, int year, int size){
+    public Flight(String id, String cityDest, String countryDest, double duration, int day, int month, int year, int size)throws MnthsException{
         this.id = id;
         this.cityDest = cityDest;
         this.duration = duration;
@@ -19,51 +20,57 @@ public abstract class Flight{
         nOfPassengers = 0;
         pList = new Passenger[size];
         this.year = year;
-        //if invalid day/month ,set it to the first of the month/Jan.
-        if(month>=1 && month<=12) 
-            this.month = month;
+        //throws exception for invalid day/month .
+        if(month<1 || month>12) 
+        throw new MnthsException("Invalid number for month");
         else
-            this.month = 1;
-        switch(this.month){
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                if (day>=1 && day<=31)
-                    this.day = day;
-                else
-                    this.day = 1;
-                break;
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                if(day>=1 && day<=30)
-                    this.day = day;
-                else
-                    this.day = 1;
-                break;
-            case 2:
-                if ((this.year % 4 == 0 && this.year % 100 != 0) || (this.year % 400 == 0)) { // leap year
-                    if (day >= 1 && day <= 29)
+            this.month = month;
+
+           
+            switch(this.month){
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    if (day>=1 && day<=31)
                         this.day = day;
                     else
-                        this.day = 1;
-                } 
-                else {
-                    if (day >= 1 && day <= 28)
+                    throw new MnthsException("Invalid number of Day for this month");
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    if(day>=1 && day<=30)
                         this.day = day;
                     else
-                        this.day = 1;
-                }
-                break;
+                    throw new MnthsException("Invalid number of for this month");
+                    break;
+                case 2:
+                    if ((this.year % 4 == 0 && this.year % 100 != 0) || (this.year % 400 == 0)) { // leap year
+                        if (day >= 1 && day <= 29)
+                            this.day = day;
+                        else
+                        throw new MnthsException("Invalid number of Day for this month");
+                    } 
+                    else {
+                        if (day >= 1 && day <= 28)
+                            this.day = day;
+                        else
+                        throw new MnthsException("Invalid number of Day for this month");
+                    }
+                    break;
+    
+    
+            }
 
 
         }
-    }
+        
+    
 
     public Flight(Flight f){  //copy constructor
         this.id = f.id;

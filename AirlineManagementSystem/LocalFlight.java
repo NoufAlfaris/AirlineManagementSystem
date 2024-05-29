@@ -1,7 +1,7 @@
 //sub-class for flights that are destined to a city inside of Saudi Arabia.
 public class LocalFlight extends Flight{
 
-    public LocalFlight(String id, String cityDest, String countryDest, double duration, int day, int month, int year, int size){
+    public LocalFlight(String id, String cityDest, String countryDest, double duration, int day, int month, int year, int size)throws MnthsException{
         super(id, cityDest, countryDest, duration, day, month, year, size);
         
     }  

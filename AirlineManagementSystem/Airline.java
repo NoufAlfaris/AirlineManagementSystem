@@ -1,12 +1,16 @@
 //a class representing our Airline system and its functions
-public class Airline{
+import java.io.*;
+public class Airline implements Serializable {
    private String name;
    private int nOfFlights;
    private Flight fList[];
 
-   public Airline (String name, int size){
+   public Airline  (String name, int size) throws AirLineException{
       this.name=name;
-      fList=new Flight[size];
+      if(size<50)
+         throw new AirLineException("Less than acceptable flights");
+      else
+         fList=new Flight[size];
       nOfFlights=0;
    }
    //method that checks for the abillity of opening new flight 
